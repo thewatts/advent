@@ -35,6 +35,24 @@ module AdventOfCode
           expect(Day1.from_next_item(puzzle_input)).to eq 1029
         end
       end
+
+      context "input with non-numeric characters" do
+        it "should raise an error for invalid input" do
+          expect { Day1.from_next_item("1a1") }.to raise_error(ArgumentError, "Input must contain only digits")
+        end
+      end
+
+      context "empty input" do
+        it "should raise an error for empty input" do
+          expect { Day1.from_next_item("") }.to raise_error(ArgumentError, "Input cannot be empty")
+        end
+      end
+
+      context "whitespace only input" do
+        it "should raise an error for whitespace only input" do
+          expect { Day1.from_next_item("   ") }.to raise_error(ArgumentError, "Input cannot be empty")
+        end
+      end
     end
 
     describe "#from_half" do
@@ -73,6 +91,23 @@ module AdventOfCode
 
         it "produces the correct sum" do
           expect(Day1.from_half(puzzle_input)).to eq 1220
+        end
+      end
+
+      context "odd-length input" do
+        it "should raise an error for odd-length input" do
+          # Advent of Code Day 1 Part 2 requires even-length input for halfway comparison
+          expect { Day1.from_half("12345") }.to raise_error(ArgumentError, "Input must have an even number of digits for halfway comparison")
+        end
+      end
+
+      context "input validation" do
+        it "should raise an error for non-numeric input" do
+          expect { Day1.from_half("12a34") }.to raise_error(ArgumentError, "Input must contain only digits")
+        end
+
+        it "should raise an error for empty input" do
+          expect { Day1.from_half("") }.to raise_error(ArgumentError, "Input cannot be empty")
         end
       end
     end
